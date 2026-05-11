@@ -96,12 +96,58 @@ body {
   100% { opacity: 1; }
 }
 
+@keyframes hud-rotate-cw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes hud-rotate-ccw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 1px); }
+  40% { transform: translate(-2px, -1px); }
+  60% { transform: translate(2px, 1px); }
+  80% { transform: translate(2px, -1px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  50% { transform: scale(1.2); opacity: 0.1; }
+  100% { transform: scale(0.8); opacity: 0.5; }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
 .animate-scan {
   animation: scan 8s linear infinite;
 }
 
 .animate-flicker {
   animation: flicker 4s infinite;
+}
+
+.animate-hud-rotate-cw {
+  animation: hud-rotate-cw 10s linear infinite;
+}
+
+.animate-hud-rotate-ccw {
+  animation: hud-rotate-ccw 15s linear infinite;
+}
+
+.animate-glitch {
+  animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 3s ease-out infinite;
 }
 
 .hud-grid {
@@ -112,4 +158,57 @@ body {
 
 .animate-spin-slow {
   animation: spin 8s linear infinite;
+}
+
+.hologram-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.hologram-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(230, 33, 42, 0.05) 50%,
+    rgba(0, 0, 0, 0.05) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.hud-bracket-tl {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-top: 2px solid var(--accent);
+  border-left: 2px solid var(--accent);
+}
+
+.hud-bracket-br {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  border-bottom: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+}
+
+/* Hide Next.js Dev Indicator & Error Overlay Badge */
+#next-dev-indicator, 
+[data-nextjs-toast], 
+[data-nextjs-dialog], 
+[data-nextjs-portal],
+nextjs-portal {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }

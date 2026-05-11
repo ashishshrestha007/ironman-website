@@ -61,12 +61,13 @@ export function Projects() {
                 <div className="absolute left-0 top-0 h-4 w-4 border-l border-t border-accent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="absolute right-0 bottom-0 h-4 w-4 border-r border-b border-accent opacity-0 transition-opacity group-hover:opacity-100" />
 
-                <div className="relative aspect-video overflow-hidden">
+                <div className="relative aspect-video overflow-hidden bg-white/5">
                   <Image 
                     src={project.image} 
                     alt={project.title}
                     fill
-                    className="object-cover opacity-40 transition-all duration-700 group-hover:scale-110 group-hover:opacity-70 group-hover:blur-[1px]"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-contain p-4 opacity-60 transition-all duration-700 group-hover:scale-105 group-hover:opacity-100"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                   

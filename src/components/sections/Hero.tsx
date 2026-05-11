@@ -29,7 +29,7 @@ export function Hero() {
     const imgs: HTMLImageElement[] = [];
 
     for (let i = 1; i <= FRAME_COUNT; i++) {
-      const img = new Image();
+      const img = new window.Image();
       img.src = framePath(i);
       img.onload = () => {
         if (cancelled) return;
