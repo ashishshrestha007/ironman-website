@@ -150,6 +150,7 @@ export function AIAssistant() {
     </div>
   );
 
+
   return (
     <div className="fixed bottom-6 right-6 z-[60] md:bottom-10 md:right-10">
       <AnimatePresence>
@@ -247,6 +248,7 @@ export function AIAssistant() {
         <div className="absolute inset-0 rounded-full border border-cyan-400/20 animate-pulse" />
         
         {isOpen ? <X size={28} weight="bold" className="text-white relative z-10" /> : <ArcReactor />}
+
         
         {!isOpen && (
           <div className="absolute -top-12 right-0 whitespace-nowrap rounded-sm bg-cyan-500 px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-widest text-black shadow-[0_0_15px_rgba(34,211,238,0.6)]">
