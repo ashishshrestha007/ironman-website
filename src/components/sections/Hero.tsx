@@ -226,8 +226,8 @@ export function Hero() {
             <span className="text-accent">Ashish.</span>
           </h1>
           <p className="max-w-[42ch] font-sans text-sm leading-relaxed text-zinc-400 md:text-base">
-            IT Officer at Pioneer & Co-Founder of Tapstik. Specialized in Python, Django,
-            and AI-powered web applications. Scroll to explore my professional journey.
+            AI-Augmented Full Stack Software Engineer &amp; Creator of Oval X RMS.
+            Leveraging modern AI workflows, Python, Django, and Next.js to engineer scalable, high-throughput systems.
           </p>
         </div>
 

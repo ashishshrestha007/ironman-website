@@ -1,61 +1,52 @@
-import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import React from "react";
 
 export function Footer() {
   return (
-    <footer
-      id="footer"
-      className="border-t border-white/5 bg-background px-6 py-14 md:px-10 md:py-16"
-    >
-      <div className="mx-auto flex max-w-[1400px] flex-col gap-10">
+    <footer id="footer" className="border-t border-[#223142] bg-[#0B0F14] py-12">
+      <div className="container-custom flex flex-col gap-8">
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-start">
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.32em] text-foreground">
-              <span
-                aria-hidden
-                className="inline-block h-2 w-2 rounded-full bg-accent shadow-[0_0_12px_rgba(230,33,42,0.9)]"
-              />
-              Ashish / Shrestha
+          {/* Brand & Location */}
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2 font-heading text-sm font-bold text-[#F0F4F8]">
+              <span className="h-2 w-2 rounded-full bg-[#E6212A]" aria-hidden="true" />
+              <span>Ashish Shrestha</span>
             </div>
-            <p className="max-w-[38ch] font-sans text-sm leading-relaxed text-zinc-400">
-              &copy; 2026 Ashish Shrestha &mdash; Full Stack Developer.
-              Tahachal, Kathmandu, Nepal. <br />
-              Email: ashishshrestha913@gmail.com
+            <p className="font-mono text-xs leading-relaxed text-[#8B9CAE]">
+              Full Stack Software Engineer &middot; Tahachal, Kathmandu, Nepal
+              <br />
+              Direct: ashishshrestha913@gmail.com
             </p>
           </div>
 
-          <nav className="grid grid-cols-2 gap-x-10 gap-y-3 md:grid-cols-3">
+          {/* Project and Profile Links in Exact Sequence */}
+          <nav aria-label="Footer navigation" className="grid grid-cols-2 gap-x-8 gap-y-2 sm:grid-cols-4 font-mono text-xs">
             {[
-              ["IT Stationary", "Infrastructure"],
-              ["Rosa Parlour", "Booking App"],
-              ["Cheque Tracker", "FinTech"],
-              ["Tapstik", "RMS Software"],
-              ["Pioneer", "IT Officer"],
-              ["GitHub", "@ashishshrestha007"],
-            ].map(([name, note]) => (
+              { label: "01. Oval X RMS", href: "http://ovalxcloud.com/" },
+              { label: "02. xSis ERP POS", href: "https://xsis.megaminds.com.np/" },
+              { label: "03. Tapstik Portal", href: "https://tapstik.net/" },
+              { label: "04. IT Stationery Pvt. Ltd.", href: "https://itstationary.com.np/" },
+              { label: "05. CheqMate", href: "https://chequetrackerr.netlify.app/" },
+              { label: "06. Nexus Game", href: "https://github.com/ashishshrestha007" },
+              { label: "07. Rosa Parlour", href: "https://rosaparlour.netlify.app/" },
+              { label: "Resume (PDF)", href: "/resume.pdf" },
+            ].map((link, idx) => (
               <a
-                key={name}
-                href="#"
-                className="group flex flex-col gap-1"
+                key={idx}
+                href={link.href}
+                target={link.href.startsWith("http") ? "_blank" : undefined}
+                rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="text-[#8B9CAE] hover:text-[#F0F4F8] transition-colors py-1"
               >
-                <span className="font-sans text-[13px] font-medium text-foreground transition-colors group-hover:text-accent">
-                  {name}
-                  <ArrowUpRight
-                    size={11}
-                    weight="bold"
-                    className="ml-1 inline-block align-baseline opacity-0 transition-opacity group-hover:opacity-100"
-                  />
-                </span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500">
-                  {note}
-                </span>
+                {link.label}
               </a>
             ))}
           </nav>
         </div>
 
-        <div className="flex flex-col gap-2 border-t border-white/5 pt-6 font-mono text-[10px] uppercase tracking-[0.28em] text-zinc-500 md:flex-row md:items-center md:justify-between">
-          <span>Build 2026.05.10 &nbsp;&middot;&nbsp; Ashish Shrestha &nbsp;&middot;&nbsp; Systems Online</span>
-          <span>Portfolio of Ashish Shrestha &mdash; Full Stack Developer</span>
+        {/* Bottom Bar */}
+        <div className="flex flex-col gap-2 border-t border-[#223142]/60 pt-6 font-mono text-[11px] text-[#8B9CAE] sm:flex-row sm:items-center sm:justify-between">
+          <span>&copy; {new Date().getFullYear()} Ashish Shrestha. All rights reserved.</span>
+          <span>Engineered for High-Throughput &amp; Reliability</span>
         </div>
       </div>
     </footer>

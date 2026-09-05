@@ -1,133 +1,129 @@
 "use client";
 
-import { AnimatedItem, AnimatedSection } from "@/components/ui/AnimatedSection";
-import { EyebrowBadge } from "@/components/ui/EyebrowBadge";
-import { HudFrame } from "@/components/ui/HudFrame";
+import React from "react";
+import { motion } from "framer-motion";
 
-const skillCategories = [
+interface SkillGroup {
+  category: string;
+  skills: { name: string; tier: "Expert" | "Advanced" | "Intermediate" }[];
+}
+
+const skillGroups: SkillGroup[] = [
   {
-    title: "Languages & Frameworks",
+    category: "Backend & Systems",
     skills: [
-      { name: "Python", level: "85%" },
-      { name: "JavaScript", level: "80%" },
-      { name: "Django", level: "85%" },
-      { name: "React", level: "75%" },
+      { name: "Python", tier: "Expert" },
+      { name: "Django & DRF", tier: "Expert" },
+      { name: "PostgreSQL / MySQL", tier: "Advanced" },
+      { name: "REST API Design", tier: "Expert" },
+      { name: "FastAPI", tier: "Intermediate" },
     ],
   },
   {
-    title: "Frontend & Design",
+    category: "Frontend & Architecture",
     skills: [
-      { name: "HTML5", level: "95%" },
-      { name: "CSS3 / Tailwind", level: "90%" },
-      { name: "TypeScript", level: "70%" },
-      { name: "Canva", level: "75%" },
+      { name: "React & Next.js", tier: "Advanced" },
+      { name: "TypeScript & JavaScript", tier: "Advanced" },
+      { name: "Tailwind CSS", tier: "Advanced" },
+      { name: "HTML5 & Semantic Web", tier: "Expert" },
+      { name: "UI/UX Architecture", tier: "Intermediate" },
     ],
   },
   {
-    title: "Tools & Backend",
+    category: "AI & Modern Tooling",
     skills: [
-      { name: "MySQL", level: "80%" },
-      { name: "GitHub", level: "85%" },
-      { name: "Vim", level: "70%" },
-      { name: "API Integration", level: "85%" },
+      { name: "AI-Augmented Dev Workflows", tier: "Advanced" },
+      { name: "Git & GitHub CI/CD", tier: "Expert" },
+      { name: "Docker & Linux", tier: "Intermediate" },
+      { name: "Cloud Deployments (Vercel/Netlify)", tier: "Advanced" },
+      { name: "System Debugging & QA", tier: "Advanced" },
     ],
   },
 ];
 
+const tierColor = {
+  Expert: "text-[#E6212A] border-[#E6212A]/30 bg-[#E6212A]/10",
+  Advanced: "text-[#38BDF8] border-[#38BDF8]/30 bg-[#38BDF8]/10",
+  Intermediate: "text-[#8B9CAE] border-[#223142] bg-[#121A24]",
+};
+
 export function Skills() {
   return (
-    <section id="skills" className="relative border-t border-white/5 bg-black py-24 md:py-32 overflow-hidden">
-      {/* Background HUD elements */}
-      <div className="absolute inset-0 hud-grid opacity-[0.03] pointer-events-none" />
-      <div className="absolute right-[-10%] top-[10%] h-[500px] w-[500px] border border-accent/5 rounded-full animate-hud-rotate-cw pointer-events-none" />
-      
-      <div className="mx-auto max-w-[1400px] px-6 md:px-10 relative z-10">
-        <AnimatedSection className="flex flex-col gap-16">
-          <div className="flex flex-col gap-6">
-            <EyebrowBadge>TECH STACK // CAPABILITIES // OPTIMIZED</EyebrowBadge>
-            <div className="flex items-center gap-6">
-              <h2 className="font-sans text-4xl font-semibold leading-tight tracking-tighter text-foreground md:text-6xl">
-                Arsenal of <span className="text-accent">Tools.</span>
+    <section id="skills" className="section-dossier overflow-hidden">
+      <div className="container-custom">
+        <div className="flex flex-col gap-10">
+          {/* Header & Legend */}
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+          >
+            <div className="flex flex-col gap-2">
+              <span className="font-mono text-xs text-[#8B9CAE]">Capability Matrix</span>
+              <h2 className="font-heading text-3xl font-bold tracking-tight text-[#F0F4F8] sm:text-4xl">
+                Technical Skills &amp; Stack
               </h2>
-              <div className="hidden md:flex flex-col gap-1 font-mono text-[8px] text-zinc-600 uppercase tracking-widest mt-2">
-                <span>System Status: Optimal</span>
-                <span>Power: Stable</span>
-              </div>
             </div>
-          </div>
 
-          <div className="grid gap-12 md:grid-cols-3">
-            {skillCategories.map((cat, i) => (
-              <AnimatedItem key={i} className="flex flex-col gap-8 p-6 border border-white/5 bg-white/[0.01] backdrop-blur-sm relative group">
-                {/* Corner Accents */}
-                <div className="absolute left-0 top-0 text-accent/20 group-hover:text-accent transition-colors">
-                  <HudFrame corner="tl" size={16} />
-                </div>
-                <div className="absolute right-0 bottom-0 text-accent/20 group-hover:text-accent transition-colors">
-                  <HudFrame corner="br" size={16} />
-                </div>
+            {/* Tier Legend */}
+            <div className="flex items-center gap-2 font-mono text-xs text-[#8B9CAE]">
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded border border-[#E6212A]/30 text-[#E6212A]">
+                Expert
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded border border-[#38BDF8]/30 text-[#38BDF8]">
+                Advanced
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded border border-[#223142] text-[#8B9CAE]">
+                Intermediate
+              </span>
+            </div>
+          </motion.div>
 
-                <div className="flex items-center gap-3">
-                  <div className="h-px w-8 bg-accent/40" />
-                  <h3 className="font-mono text-xs uppercase tracking-[0.3em] text-accent">
-                    {cat.title}
-                  </h3>
-                </div>
-                
-                <div className="flex flex-col gap-8">
-                  {cat.skills.map((skill, j) => (
-                    <div key={j} className="flex flex-col gap-3 group/skill">
-                      <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.15em]">
-                        <span className="text-foreground group-hover/skill:text-accent transition-colors">{skill.name}</span>
-                        <div className="flex items-center gap-2">
-                          <span className="text-accent/60 font-bold">{skill.level}</span>
-                          <span className="h-1 w-1 rounded-full bg-accent animate-pulse" />
-                        </div>
+          {/* 3-Column Tier Grid with Left/Center/Right Convergence Animation */}
+          <div className="grid gap-6 md:grid-cols-3">
+            {skillGroups.map((group, i) => {
+              const xOffset = i === 0 ? -60 : i === 2 ? 60 : 0;
+              const yOffset = i === 1 ? 40 : 0;
+
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: xOffset, y: yOffset }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                  className="border border-[#223142] bg-[#121A24] p-6 flex flex-col gap-5"
+                >
+                  <div className="border-b border-[#223142] pb-3">
+                    <h3 className="font-heading text-base font-bold text-[#F0F4F8]">
+                      {group.category}
+                    </h3>
+                  </div>
+
+                  <div className="flex flex-col gap-2.5">
+                    {group.skills.map((skill, j) => (
+                      <div
+                        key={j}
+                        className="flex items-center justify-between border-b border-[#223142]/50 pb-2 text-sm"
+                      >
+                        <span className="font-medium text-[#F0F4F8]">{skill.name}</span>
+                        <span
+                          className={`rounded px-2 py-0.5 font-mono text-[10px] font-semibold border ${
+                            tierColor[skill.tier]
+                          }`}
+                        >
+                          {skill.tier}
+                        </span>
                       </div>
-                      
-                      <div className="relative h-[4px] w-full bg-white/5 overflow-hidden">
-                        {/* Static Segments */}
-                        <div className="absolute inset-0 flex justify-between px-1">
-                          {[...Array(10)].map((_, k) => (
-                            <div key={k} className="w-[1px] h-full bg-white/10" />
-                          ))}
-                        </div>
-                        
-                        <div 
-                          className="absolute inset-0 bg-accent/20 blur-[2px] transition-all duration-1000" 
-                          style={{ width: skill.level }}
-                        />
-                        <div 
-                          className="relative h-full bg-accent shadow-[0_0_12px_rgba(230,33,42,0.8)] transition-all duration-1000" 
-                          style={{ width: skill.level }}
-                        />
-                        
-                        {/* Scanning glint for the bar */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent w-20 animate-shimmer" style={{ animationDuration: '2s' }} />
-                      </div>
-                      
-                      <div className="flex justify-between font-mono text-[7px] text-zinc-700 tracking-widest">
-                        <span>SYS_ID_{i}{j}</span>
-                        <span>BOOT_SEQ_00{j}</span>
-                        <span>STATUS_OK</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                
-                {/* Section Footer Micro-Telemetry */}
-                <div className="mt-4 pt-4 border-t border-white/5 flex justify-between items-center opacity-30 group-hover:opacity-60 transition-opacity">
-                  <div className="flex gap-1">
-                    {[...Array(5)].map((_, k) => (
-                      <div key={k} className="h-2 w-1 bg-accent" />
                     ))}
                   </div>
-                  <span className="font-mono text-[8px] uppercase">Telemetry Link_0{i}</span>
-                </div>
-              </AnimatedItem>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
-        </AnimatedSection>
+        </div>
       </div>
     </section>
   );

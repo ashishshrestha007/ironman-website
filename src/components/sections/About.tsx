@@ -1,83 +1,70 @@
 "use client";
 
-import { AnimatedItem, AnimatedSection } from "@/components/ui/AnimatedSection";
-import { EyebrowBadge } from "@/components/ui/EyebrowBadge";
-import { HudFrame } from "@/components/ui/HudFrame";
+import React from "react";
+import { motion } from "framer-motion";
 
 export function About() {
   return (
-    <section id="about" className="relative overflow-hidden border-t border-white/5 bg-black py-24 md:py-32">
-      {/* Background HUD elements */}
-      <div className="absolute left-[-5%] top-[10%] h-[300px] w-[300px] opacity-[0.03] pointer-events-none">
-        <div className="absolute inset-0 border border-accent rounded-full animate-hud-rotate-cw" />
-        <div className="absolute inset-10 border border-dashed border-accent/40 rounded-full animate-hud-rotate-ccw" />
-      </div>
+    <section id="about" className="section-dossier overflow-hidden">
+      <div className="container-custom">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16 items-start">
+          {/* Left Column: Slides from Left into Center */}
+          <motion.div
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col gap-5"
+          >
+            <div className="flex items-center gap-2 font-mono text-xs text-[#8B9CAE]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#E6212A]" aria-hidden="true" />
+              <span>Executive Summary</span>
+            </div>
 
-      {/* Scanning Line Animation */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent shadow-[0_0_15px_rgba(230,33,42,0.5)] animate-scan" />
+            <h2 className="font-heading text-3xl font-bold tracking-tight text-[#F0F4F8] sm:text-4xl">
+              Engineering high-performance enterprise systems and SaaS architectures.
+            </h2>
 
-      <div className="mx-auto max-w-[1400px] px-6 md:px-10 relative z-10">
-        <AnimatedSection className="grid gap-12 md:grid-cols-[1fr_1.5fr] md:gap-20">
-          <AnimatedItem className="flex flex-col gap-6">
-            <EyebrowBadge>MISSION // OBJECTIVE</EyebrowBadge>
-            <div className="relative">
-              <h2 className="font-sans text-4xl font-semibold leading-tight tracking-tighter text-foreground md:text-6xl">
-                Engineering <span className="text-accent">Intelligence</span> into Code.
-              </h2>
-              {/* Profile ID Badge */}
-              <div className="mt-6 flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.3em] text-accent/60">
-                <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-                <span>Subject ID: ASHISH_S-85</span>
-                <span className="text-zinc-700">|</span>
-                <span>Type: Full Stack / AI</span>
-              </div>
-            </div>
-          </AnimatedItem>
-          
-          <AnimatedItem className="flex flex-col gap-6 relative">
-            {/* HUD Corner Accents for the text block */}
-            <div className="absolute -left-6 -top-6 text-accent/20">
-              <HudFrame corner="tl" size={20} />
-            </div>
-            
-            <p className="font-sans text-lg leading-relaxed text-zinc-400">
-              I am Ashish Shrestha, an **AI-Powered Full Stack Engineer** based in Kathmandu, Nepal. 
-              I specialize in bridging the gap between advanced AI capabilities and robust web architectures, 
-              creating applications that aren't just functional, but intelligent.
+            <p className="text-base leading-relaxed text-[#8B9CAE]">
+              I am Ashish Shrestha, a Full Stack Engineer based in Kathmandu, Nepal.
+              I am the owner and sole developer of <strong className="text-[#F0F4F8]">Oval X RMS</strong> (Cloud Restaurant Management System &mdash; 100% built by me)
+              and the co-owner and co-developer of <strong className="text-[#F0F4F8]">xSis</strong> (Commercial ERP, Billing &amp; POS platform).
             </p>
-            <p className="font-sans text-lg leading-relaxed text-zinc-400">
-              With over 4 years of experience, my work at **Pioneer** and **Tapstik** involves architecting 
-              systems that leverage AI to automate workflows, analyze data, and enhance user interaction 
-              to an unprecedented level.
-            </p>
-            
-            <div className="mt-4 grid grid-cols-2 gap-8 border-t border-white/10 pt-8 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
-              <div className="flex flex-col gap-2 group/stat">
-                <span className="flex items-center gap-2 text-accent transition-colors group-hover/stat:text-white">
-                  <span className="h-1 w-1 rounded-full bg-accent shadow-[0_0_8px_rgba(230,33,42,0.8)]" />
-                  Location
-                </span>
-                <span className="text-foreground">Kathmandu, Nepal</span>
-                <div className="h-px w-0 bg-accent/40 transition-all group-hover/stat:w-full" />
+          </motion.div>
+
+          {/* Right Column: Slides from Right into Center */}
+          <motion.div
+            initial={{ opacity: 0, x: 60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col gap-6"
+          >
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-px bg-[#223142] border border-[#223142]">
+              <div className="bg-[#121A24] p-5 flex flex-col gap-1">
+                <span className="font-mono text-xs text-[#8B9CAE]">Experience</span>
+                <span className="font-heading text-2xl font-bold text-[#F0F4F8]">4+ Years</span>
+                <span className="text-xs text-[#8B9CAE]">Production Engineering</span>
               </div>
-              <div className="flex flex-col gap-2 group/stat">
-                <span className="flex items-center gap-2 text-accent transition-colors group-hover/stat:text-white">
-                  <span className="h-1 w-1 rounded-full bg-accent shadow-[0_0_8px_rgba(230,33,42,0.8)]" />
-                  Capability
-                </span>
-                <span className="text-foreground">AI Integration / Full Stack</span>
-                <div className="h-px w-0 bg-accent/40 transition-all group-hover/stat:w-full" />
+
+              <div className="bg-[#121A24] p-5 flex flex-col gap-1">
+                <span className="font-mono text-xs text-[#8B9CAE]">Flagship System</span>
+                <span className="font-heading text-2xl font-bold text-[#E6212A]">Oval X</span>
+                <span className="text-xs text-[#8B9CAE]">100% Owned &amp; Built</span>
+              </div>
+
+              <div className="bg-[#121A24] p-5 col-span-2 sm:col-span-1 flex flex-col gap-1">
+                <span className="font-mono text-xs text-[#8B9CAE]">Location</span>
+                <span className="font-heading text-2xl font-bold text-[#F0F4F8]">Kathmandu</span>
+                <span className="text-xs text-[#8B9CAE]">Nepal (GMT +5:45)</span>
               </div>
             </div>
-            
-            {/* Micro Telemetry */}
-            <div className="absolute right-0 bottom-[-40px] opacity-20 font-mono text-[7px] flex gap-4 text-zinc-500">
-              <span>SCAN_VER: 1.0.4</span>
-              <span>BIO_SYNC: 100%</span>
-              <span>LAT: 0.02ms</span>
+
+            <div className="border-l-2 border-[#E6212A] bg-[#121A24]/60 p-4 text-xs leading-relaxed text-[#8B9CAE]">
+              <strong className="text-[#F0F4F8] font-semibold">Engineering Focus:</strong> Solo product engineering, enterprise Python/Django backends, Next.js web portals, real-time WebSocket dispatch, and AI-accelerated workflows.
             </div>
-          </AnimatedItem>
-        </AnimatedSection>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

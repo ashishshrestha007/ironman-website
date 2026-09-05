@@ -2,14 +2,13 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChatTeardropDots, X, PaperPlaneTilt, Robot, User, ShieldCheck } from "@phosphor-icons/react";
-import { HudFrame } from "@/components/ui/HudFrame";
+import { X, PaperPlaneTilt, User, ShieldCheck } from "@phosphor-icons/react";
 
 type Message = {
   id: string;
   type: "ai" | "user";
   text: string;
-  timestamp: Date;
+  timestamp: string;
 };
 
 type UserData = {
@@ -19,13 +18,27 @@ type UserData = {
 };
 
 const ASHISH_INFO = {
-  who: "Ashish Shrestha is an AI-Powered Full Stack Engineer and the Co-Founder of Tapstik. He specializes in building scalable, intelligent systems that bridge the gap between complex backend architectures and intuitive user experiences.",
+  who: "Ashish Shrestha is an AI-Augmented Full Stack Engineer and the Co-Founder of Tapstik. He specializes in building scalable, intelligent systems that bridge the gap between complex backend architectures and intuitive user experiences.",
   what: "He develops advanced web applications, AI-integrated solutions, and robust enterprise software. His mission is to empower businesses through technology that feels like the future.",
   skills: "His core arsenal includes Python, Django, Next.js, React, Tailwind CSS, and AI model integration. He is also proficient in DevOps and cloud infrastructure.",
   education: "Ashish holds a degree in Computer Science and Information Technology. He is a continuous learner, constantly updating his protocols with the latest industry standards.",
-  projects: "Notable operations include: Tapstik (Restaurant Management), CheqMate (Financial Tracking), and IT Stationary (Networking Solutions).",
+  projects: "Notable operations include: Oval X (Cloud RMS), xSis (AI ERP/POS), Tapstik, CheqMate, and IT Stationery Pvt. Ltd.",
   contact: "You can reach Ashish via email at ashishshrestha913@gmail.com or call his direct frequency at +977 9808629430.",
 };
+
+function ArcReactor({ scale = 1 }: { scale?: number }) {
+  return (
+    <div 
+      className="relative flex items-center justify-center" 
+      style={{ width: 48 * scale, height: 48 * scale }}
+    >
+      <div className="absolute inset-0 rounded-full border-4 border-cyan-400/30 bg-cyan-900/20 shadow-[0_0_15px_rgba(34,211,238,0.5)]" />
+      <div className="absolute inset-2 rounded-full border-2 border-cyan-300 shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
+      <div className="absolute h-4 w-4 rounded-full bg-white shadow-[0_0_10px_#fff,0_0_20px_#22d3ee]" style={{ width: 16 * scale, height: 16 * scale }} />
+      <div className="absolute inset-0 rounded-full border border-cyan-400/50 animate-hud-rotate-cw" />
+    </div>
+  );
+}
 
 export function AIAssistant() {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,13 +47,14 @@ export function AIAssistant() {
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<Message[]>([
     {
-      id: "1",
+      id: "init-1",
       type: "ai",
       text: "Greetings. I am J.A.R.V.I.S., Ashish's AI assistant. To initiate the inquiry protocol, may I have your name?",
-      timestamp: new Date(),
+      timestamp: "Just now",
     },
   ]);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const messageCounterRef = useRef(1);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -51,14 +65,29 @@ export function AIAssistant() {
   const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const validatePhone = (phone: string) => /^\+?[0-9\s-]{7,15}$/.test(phone);
 
+  const addAIMessage = (text: string) => {
+    messageCounterRef.current += 1;
+    const currentCount = messageCounterRef.current;
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: `ai-${currentCount}`,
+        type: "ai",
+        text,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      },
+    ]);
+  };
+
   const handleSend = () => {
     if (!inputValue.trim()) return;
 
+    messageCounterRef.current += 1;
     const userMsg: Message = {
-      id: Date.now().toString(),
+      id: `user-${messageCounterRef.current}`,
       type: "user",
       text: inputValue,
-      timestamp: new Date(),
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
 
     const input = inputValue.trim();
@@ -126,29 +155,6 @@ export function AIAssistant() {
     }
   };
 
-  const addAIMessage = (text: string) => {
-    setMessages((prev) => [
-      ...prev,
-      {
-        id: Date.now().toString(),
-        type: "ai",
-        text,
-        timestamp: new Date(),
-      },
-    ]);
-  };
-
-  const ArcReactor = ({ scale = 1 }: { scale?: number }) => (
-    <div 
-      className="relative flex items-center justify-center" 
-      style={{ width: 48 * scale, height: 48 * scale }}
-    >
-      <div className="absolute inset-0 rounded-full border-4 border-cyan-400/30 bg-cyan-900/20 shadow-[0_0_15px_rgba(34,211,238,0.5)]" />
-      <div className="absolute inset-2 rounded-full border-2 border-cyan-300 shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
-      <div className="absolute h-4 w-4 rounded-full bg-white shadow-[0_0_10px_#fff,0_0_20px_#22d3ee]" style={{ width: 16 * scale, height: 16 * scale }} />
-      <div className="absolute inset-0 rounded-full border border-cyan-400/50 animate-hud-rotate-cw" />
-    </div>
-  );
 
 
   return (
@@ -203,8 +209,8 @@ export function AIAssistant() {
                       <div className={`rounded-sm p-3 font-sans text-sm leading-relaxed ${msg.type === "ai" ? "bg-white/[0.03] text-foreground border-l-2 border-cyan-500/50" : "bg-cyan-500/10 text-foreground border-r-2 border-cyan-500/50"}`}>
                         {msg.text}
                       </div>
-                      <span className="font-mono text-[8px] uppercase tracking-widest text-zinc-600">
-                        {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      <span className="font-mono text-[8px] uppercase tracking-widest text-zinc-400">
+                        {msg.timestamp}
                       </span>
                     </div>
                   </div>

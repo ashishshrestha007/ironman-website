@@ -1,95 +1,77 @@
 "use client";
 
-import { AnimatedItem, AnimatedSection } from "@/components/ui/AnimatedSection";
-import { EyebrowBadge } from "@/components/ui/EyebrowBadge";
-import { HudFrame } from "@/components/ui/HudFrame";
+import React from "react";
+import { motion } from "framer-motion";
+
+const coursework = [
+  "Data Structures & Algorithms",
+  "Database Management Systems (DBMS)",
+  "Operating Systems Architecture",
+  "Object-Oriented Programming (Python/C++)",
+  "Computer Networks & Protocols",
+  "Software Engineering & QA",
+];
 
 export function Education() {
   return (
-    <section id="education" className="relative border-t border-white/5 bg-black py-24 md:py-32">
-      {/* Background Data Stream Effect */}
-      <div className="absolute left-0 top-0 h-full w-[1px] bg-gradient-to-b from-transparent via-accent/20 to-transparent" />
-      
-      <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <AnimatedSection className="grid gap-12 md:grid-cols-2 md:items-center md:gap-20">
-          <div className="flex flex-col gap-8">
-            <div className="flex flex-col gap-6">
-              <EyebrowBadge>ACADEMIC // BACKGROUND // UPLOAD</EyebrowBadge>
-              <h2 className="font-sans text-4xl font-semibold leading-tight tracking-tighter text-foreground md:text-6xl">
-                Knowledge <span className="text-accent">Protocol.</span>
-              </h2>
-              <p className="font-sans text-lg leading-relaxed text-zinc-400">
-                Merging academic theory with professional **AI-Powered** development experience. 
-                Deepening expertise in Advanced Algorithms and System Architecture.
-              </p>
+    <section id="education" className="section-dossier overflow-hidden">
+      <div className="container-custom">
+        <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:gap-16 items-start">
+          {/* Left Column: Slides in from Left */}
+          <motion.div
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col gap-3"
+          >
+            <span className="font-mono text-xs text-[#8B9CAE]">Academic Background</span>
+            <h2 className="font-heading text-3xl font-bold tracking-tight text-[#F0F4F8] sm:text-4xl">
+              Computer Science Education
+            </h2>
+            <p className="text-sm leading-relaxed text-[#8B9CAE] mt-1">
+              Bachelor of Computer Application (BCA) at Tribhuvan University, grounding software development in core algorithmic principles, database systems, and software engineering methodologies.
+            </p>
+          </motion.div>
+
+          {/* Right Column: Slides in from Right */}
+          <motion.div
+            initial={{ opacity: 0, x: 60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="border border-[#223142] bg-[#121A24] p-6 sm:p-7 flex flex-col gap-5"
+          >
+            <div className="flex items-center justify-between border-b border-[#223142] pb-4">
+              <div>
+                <h3 className="font-heading text-lg font-bold text-[#F0F4F8]">
+                  Bachelor of Computer Application (BCA)
+                </h3>
+                <span className="font-mono text-xs text-[#8B9CAE]">
+                  Tribhuvan University, Nepal
+                </span>
+              </div>
+              <span className="font-mono text-xs font-semibold text-[#38BDF8] border border-[#38BDF8]/30 bg-[#38BDF8]/10 px-2.5 py-1 rounded">
+                5th Semester
+              </span>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
-              <div className="flex flex-col gap-2 border-l border-accent/30 pl-4">
-                <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-500">Academic Load</span>
-                <span className="font-sans text-xl font-bold text-foreground">62.5%</span>
-              </div>
-              <div className="flex flex-col gap-2 border-l border-accent/30 pl-4">
-                <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-500">Sync Status</span>
-                <span className="font-sans text-xl font-bold text-accent animate-pulse">ACTIVE</span>
+            <div className="flex flex-col gap-2.5">
+              <span className="font-mono text-xs text-[#8B9CAE]">Core Coursework &amp; Practicals:</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {coursework.map((course, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center gap-2 rounded bg-[#0B0F14] border border-[#223142] px-3 py-2 text-xs text-[#F0F4F8]"
+                  >
+                    <span className="text-[#E6212A] font-mono">/</span>
+                    <span>{course}</span>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
-
-          <AnimatedItem className="relative group">
-            <div className="relative border border-white/10 bg-white/[0.02] p-8 md:p-12 transition-all duration-500 group-hover:bg-white/[0.04] group-hover:border-accent/30">
-              {/* HUD Brackets */}
-              <div className="absolute left-4 top-4 text-accent/20 transition-colors group-hover:text-accent/50">
-                <HudFrame corner="tl" size={20} />
-              </div>
-              <div className="absolute right-4 bottom-4 text-accent/20 transition-colors group-hover:text-accent/50">
-                <HudFrame corner="br" size={20} />
-              </div>
-
-              <div className="flex flex-col gap-8">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent">
-                    Diagnostic Report // BCA
-                  </span>
-                  <div className="flex gap-1">
-                    {[1, 2, 3, 4, 5].map((s) => (
-                      <div key={s} className={`h-1.5 w-1.5 rounded-full ${s <= 5 ? 'bg-accent shadow-[0_0_8px_rgba(230,33,42,0.8)]' : 'bg-white/10'}`} />
-                    ))}
-                  </div>
-                </div>
-                
-                <div className="flex flex-col gap-3">
-                  <h3 className="font-sans text-3xl font-bold text-foreground md:text-4xl leading-none">
-                    Bachelor of Computer Application
-                  </h3>
-                  <span className="font-mono text-sm uppercase tracking-[0.1em] text-zinc-400">
-                    Tribhuvan University &mdash; Nepal
-                  </span>
-                </div>
-
-                <div className="flex flex-col gap-4">
-                  <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em]">
-                    <span className="text-zinc-500">Learning Progress</span>
-                    <span className="text-foreground">5th Semester // In Progress</span>
-                  </div>
-                  <div className="relative h-1.5 w-full bg-white/5 overflow-hidden">
-                    <div className="absolute inset-0 bg-accent/10" />
-                    <div className="relative h-full w-[62.5%] bg-accent shadow-[0_0_15px_rgba(230,33,42,0.7)] transition-all duration-1000" />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-3 gap-4 border-t border-white/5 pt-6">
-                  {['JAVA', 'DBMS', 'OS'].map(sub => (
-                    <div key={sub} className="flex flex-col gap-1">
-                      <span className="font-mono text-[8px] text-zinc-600 uppercase tracking-widest">{sub}</span>
-                      <span className="font-mono text-[10px] text-zinc-400">NOMINAL</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </AnimatedItem>
-        </AnimatedSection>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

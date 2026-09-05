@@ -2,95 +2,106 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowUpRight } from "@phosphor-icons/react";
+import { DownloadSimple } from "@phosphor-icons/react";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+
+      const sections = ["hero", "about", "experience", "skills", "projects", "certifications", "contact"];
+      const scrollPosition = window.scrollY + 140;
+
+      for (const sectionId of sections) {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const navLinks = [
+    { href: "#about", label: "About", id: "about" },
+    { href: "#experience", label: "Experience", id: "experience" },
+    { href: "#skills", label: "Skills", id: "skills" },
+    { href: "#projects", label: "Projects", id: "projects" },
+    { href: "#testimonials", label: "Reviews", id: "testimonials" },
+    { href: "#certifications", label: "Credentials", id: "certifications" },
+    { href: "#contact", label: "Contact", id: "contact" },
+  ];
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-40 transition-[background-color,backdrop-filter,border-color] duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-200 ${
         scrolled
-          ? "border-b border-white/10 bg-black/60 backdrop-blur-2xl backdrop-saturate-150"
-          : "border-b border-transparent bg-transparent"
+          ? "border-b border-[#223142] bg-[#0B0F14]/90 backdrop-blur-md py-3 shadow-md"
+          : "border-b border-transparent bg-transparent py-5"
       }`}
     >
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-4 md:px-8 md:py-5">
+      <div className="container-custom flex items-center justify-between">
+        {/* Identity & Location */}
         <Link
           href="/"
-          className="flex items-center gap-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.32em] text-foreground"
+          className="flex items-center gap-2.5 font-heading text-sm font-semibold tracking-tight text-[#F0F4F8] transition-opacity hover:opacity-90"
         >
-          <span
-            aria-hidden
-            className="inline-block h-2 w-2 rounded-full bg-accent shadow-[0_0_12px_rgba(230,33,42,0.9)]"
-          />
-          Ashish / Shrestha
+          <span className="h-2 w-2 rounded-full bg-[#E6212A]" aria-hidden="true" />
+          <span>Ashish Shrestha</span>
+          <span className="hidden text-xs font-normal text-[#8B9CAE] sm:inline font-mono">
+            [Kathmandu, NP]
+          </span>
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex">
-          <a
-            href="#hero"
-            className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-400 transition-colors hover:text-foreground"
-          >
-            Home
-          </a>
-          <a
-            href="#about"
-            className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-400 transition-colors hover:text-foreground"
-          >
-            About
-          </a>
-          <a
-            href="#experience"
-            className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-400 transition-colors hover:text-foreground"
-          >
-            Experience
-          </a>
-          <a
-            href="#education"
-            className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-400 transition-colors hover:text-foreground"
-          >
-            Education
-          </a>
-          <a
-            href="#skills"
-            className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-400 transition-colors hover:text-foreground"
-          >
-            Skills
-          </a>
-          <a
-            href="#projects"
-            className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-400 transition-colors hover:text-foreground"
-          >
-            Projects
-          </a>
-          <a
-            href="#contact"
-            className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-400 transition-colors hover:text-foreground"
-          >
-            Contact
-          </a>
+        {/* Navigation Links */}
+        <nav className="hidden items-center gap-1 md:flex" aria-label="Main Navigation">
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.id;
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                className={`rounded px-3 py-1.5 text-xs font-medium transition-colors ${
+                  isActive
+                    ? "bg-[#182230] text-[#F0F4F8] border border-[#223142]"
+                    : "text-[#8B9CAE] hover:bg-[#121A24] hover:text-[#F0F4F8]"
+                }`}
+              >
+                {link.label}
+              </a>
+            );
+          })}
         </nav>
 
-        <a
-          href="#systems"
-          className="group inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.05] px-4 py-2 font-mono text-[11px] font-medium uppercase tracking-[0.22em] text-foreground backdrop-blur-md transition-all duration-200 hover:bg-white/[0.1] active:translate-y-[1px]"
-        >
-          Engage
-          <ArrowUpRight
-            size={14}
-            weight="bold"
-            className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-          />
-        </a>
+        {/* Action Buttons */}
+        <div className="flex items-center gap-2.5">
+          <a
+            href="/resume.pdf"
+            download="Ashish_Shrestha_Resume.pdf"
+            className="inline-flex items-center gap-1.5 rounded border border-[#223142] bg-[#121A24] px-3 py-1.5 text-xs font-medium text-[#F0F4F8] transition-colors hover:border-[#8B9CAE]/40"
+          >
+            <DownloadSimple size={14} weight="bold" />
+            <span>Resume</span>
+          </a>
+
+          <a
+            href="#contact"
+            className="btn-primary py-1.5 px-3.5 text-xs font-semibold"
+          >
+            Get In Touch
+          </a>
+        </div>
       </div>
     </header>
   );
